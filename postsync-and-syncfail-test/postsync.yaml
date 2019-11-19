@@ -1,0 +1,28 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: notifyt-to-slack-when-success
+  annotations:
+    argocd.argoproj.io/hook: PostSync
+    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
+spec:
+  template:
+    spec:
+      containers:
+      - name: slack-notify
+        image: technosophos/slack-notify
+        env:
+        - name: SLACK_WEBHOOK
+          valueFrom:
+            secretKeyRef:
+              name: slack
+              key: webhook
+        - name: SLACK_USERNAME
+          value: ArgoCD
+        - name: SLACK_TITLE
+          value: Success
+        - name: SLACK_MESSAGE
+          value: Success
+        - name: SLACK_COLOR
+          value: #00FF00
+      restartPolicy: Never
