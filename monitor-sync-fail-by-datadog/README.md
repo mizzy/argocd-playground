@@ -27,7 +27,7 @@ spec:
                 "prometheus_url":"http://10.102.66.118:8082/metrics",
                 "namespace":"argocd",
                 "metrics":[
-                  "argocd_app_sync_total"
+                  "argocd_app_*"
                 ]
              }
           ]
